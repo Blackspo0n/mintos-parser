@@ -5,23 +5,23 @@ using System.Text;
 
 namespace MintosParser {
     class OutputStatementFile {
-        private string delimiter {get; set;}
-        private Encoding encoding {get; set;}
-
+        #region properties
+        private string delimiter {get; set;} = String.Empty;
+        private Encoding encoding {get; set;} = Encoding.Default;
         public FileInfo path { get; set; }
-
         public DataTable outputDataTable { get; set; }
+        #endregion
         public OutputStatementFile(FileInfo path) {
             this.path = path;
             outputDataTable = new DataTable();
         }
 
-        public void setParsingOptions(string delimiter, Encoding encoding) {
+        public void SetParsingOptions(string delimiter, Encoding encoding) {
             this.delimiter = delimiter;
             this.encoding = encoding;
         }
 
-        public void prepareOutputFile() {
+        public void PrepareOutputFile() {
             outputDataTable.Columns.Add(new DataColumn() {ColumnName = "Orginales Datum", DataType = typeof(DateTime), AllowDBNull = false});
             outputDataTable.Columns.Add(new DataColumn() {ColumnName = "Datum", DataType = typeof(String), AllowDBNull = false});
             outputDataTable.Columns.Add(new DataColumn() {ColumnName = "Uhrzeit", DataType = typeof(String), AllowDBNull = false});

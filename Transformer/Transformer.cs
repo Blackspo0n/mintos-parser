@@ -4,8 +4,8 @@ using MintosParser.StatementTypes;
 
 namespace MintosParser {
     class Transformer {
-        // public static string DepotName { get; set; }
-        public static string AccountName { get; set; }
+        // public static string DepotName { get; set; } = String.Empty;
+        public static string AccountName { get; set; } = String.Empty;
         
         public static void Transform(List<IOutputStatementType> statements, OutputStatementFile outputFile) {
             foreach(IOutputStatementType statement in statements) {

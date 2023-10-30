@@ -11,9 +11,9 @@ namespace mintosParser {
     {
         #region static properties
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        public static OutputStatementFile outputFile { get; set;}
-        public static InputStatementFile inputFile { get; set; }
-        public static CSVParser parser { get; set; }
+        public static OutputStatementFile? outputFile { get; set;}
+        public static InputStatementFile? inputFile { get; set; }
+        public static CSVParser? parser { get; set; }
         public static Option<LogLevel> logLevelOption = new Option<LogLevel>("--loglevel", (value) => NLog.LogLevel.Info, true);
         public static Option<string> outputEncodingOption = new Option<string>(new string[]{"--output-encoding", "-oe"}, (value) => "utf-8", true, "Output Encoding of the csv file");
         public static Option<string> inputEncodingOption = new Option<string>(new string[]{"--input-encoding", "-ie"}, (value) => "utf-8", true, "Input Encoding of the csv file");
@@ -43,7 +43,7 @@ namespace mintosParser {
             logger.Info("Outputfile: " + outputFile.path.FullName);
 
             parser = new CSVParser(inputFile);
-            parser.setParsingOptions(context.ParseResult.GetValueForOption(inputSeperatorOption) ?? ",", Encoding.GetEncoding(context.ParseResult.GetValueForOption<string>(inputEncodingOption)));
+            parser.setParsingOptions(context.ParseResult.GetValueForOption(inputSeperatorOption) ?? ",", Encoding.GetEncoding(context.ParseResult.GetValueForOption(inputEncodingOption)??"utf-8"));
             
             try {
                 parser.loadCSV();
@@ -53,7 +53,7 @@ namespace mintosParser {
             }
 
             var list = parser.parse();
-            outputFile.prepareOutputFile();
+            outputFile.PrepareOutputFile();
 
             Transformer.AccountName = context.ParseResult.GetValueForOption(AccountNameOption) ?? String.Empty;
             //Transformer.DepotName = context.ParseResult.GetValueForOption(DepotNameOption) ?? String.Empty;
@@ -64,7 +64,7 @@ namespace mintosParser {
             Transformer.Transform(aggregatedList, outputFile);
             //outputFile.outputDataTable = Aggregator.Normalize(outputFile.outputDataTable);
             
-            outputFile.setParsingOptions(context.ParseResult.GetValueForOption(outputSeperatorOption) ?? String.Empty, Encoding.GetEncoding(context.ParseResult.GetValueForOption<string>(outputEncodingOption)));
+            outputFile.SetParsingOptions(context.ParseResult.GetValueForOption(outputSeperatorOption) ?? String.Empty, Encoding.GetEncoding(context.ParseResult.GetValueForOption(outputEncodingOption)??"utf-8"));
             outputFile.DoExport();
         }
     }
