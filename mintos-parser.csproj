@@ -6,6 +6,7 @@
     <RootNamespace>mintos_parser</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Update="nlog.config" CopyToOutputDirectory="Always" />

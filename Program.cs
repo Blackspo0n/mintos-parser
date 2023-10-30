@@ -17,7 +17,7 @@ namespace mintosParser {
         public static Option<LogLevel> logLevelOption = new Option<LogLevel>("--loglevel", (value) => NLog.LogLevel.Info, true);
         public static Option<string> outputEncodingOption = new Option<string>(new string[]{"--output-encoding", "-oe"}, (value) => "utf-8", true, "Output Encoding of the csv file");
         public static Option<string> inputEncodingOption = new Option<string>(new string[]{"--input-encoding", "-ie"}, (value) => "utf-8", true, "Input Encoding of the csv file");
-        public static Option<string> inputLanguageOption = new Option<string>(new string[]{"--input-language", "-il"}, (value) => "en", true, "Langaue of the input csv file. Supported currently are: en");
+        //public static Option<string> inputLanguageOption = new Option<string>(new string[]{"--input-language", "-il"}, (value) => "en", true, "Langauge of the input csv file. Supported currently are: en");
         public static Option<string> inputSeperatorOption = new Option<string>(new string[]{"--input-seperator", "-is"}, (value) => ",", true, "CSV Seperator of the input file");
         public static Option<string> outputSeperatorOption = new Option<string>(new string[]{"--output-seperator", "-os"}, (value) => ";", true, "CSV Seperator of the output file");
         //public static Option<string> DepotNameOption = new Option<string>(new string[]{"--depot-name","-d"}, (value) => "Mintos", true, "Depot name which will be used to reference the loans.");
@@ -25,7 +25,7 @@ namespace mintosParser {
         public static Argument<FileInfo> InputFileArgument = new Argument<FileInfo>("input file", "Mintos CSV Input Path");
         public static Argument<FileInfo> OutputFileArgument = new Argument<FileInfo>("output file","Output Path for Portfolio Performance CSV File");
         public static RootCommand rootCommand = new RootCommand("Mintos CSV parser transforms mintos CSV statementfiles into CSV files that can be easily imported by Portfolio Performance") {
-            logLevelOption, outputEncodingOption, inputEncodingOption,inputLanguageOption, inputSeperatorOption, outputSeperatorOption,AccountNameOption, InputFileArgument, OutputFileArgument
+            logLevelOption, outputEncodingOption, inputEncodingOption, inputSeperatorOption, outputSeperatorOption,AccountNameOption, InputFileArgument, OutputFileArgument
         };
 
         #endregion

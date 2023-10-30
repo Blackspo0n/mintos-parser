@@ -7,9 +7,23 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/mintos parser.csproj",
+                "${workspaceFolder}/mintos-parser.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build release",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/mintos-parser.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign",
+                "-c",
+                "Release"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -19,7 +33,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/mintos parser.csproj",
+                "${workspaceFolder}/mintos-parser.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -33,7 +47,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/mintos parser.csproj"
+                "${workspaceFolder}/mintos-parser.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
