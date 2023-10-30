@@ -9,15 +9,18 @@ namespace MintosParser.StatementTypes {
         public bool isBuyback { get; set; }
         public bool isPending { get; set; }
         public AbstractLoanType(DataRow row) : base(row) {
-            ExtractDetails(row["Details"].ToString());
-            if(row["Payment Type"].ToString().Contains("repurchase") || row["Payment Type"].ToString().Contains("rebuy")) {
+            ISIN = String.Empty;
+            LoanNumber = String.Empty;
+
+            ExtractDetails(row["Details"].ToString()  ?? String.Empty);
+            if((row["Payment Type"].ToString() ?? String.Empty).Contains("repurchase") || (row["Payment Type"].ToString() ?? String.Empty).Contains("rebuy")) {
                 isBuyback = true;
             }
             else {
                 isBuyback = false;
             }
             
-            if(row["Payment Type"].ToString().Contains("pending")) {
+            if((row["Payment Type"].ToString() ?? String.Empty).Contains("pending")) {
                 isPending = true;
             }
             else {
@@ -43,6 +46,5 @@ namespace MintosParser.StatementTypes {
             }
         }
         
-        public abstract override Dictionary<string, object> GetTransformerFields();
     }
 }

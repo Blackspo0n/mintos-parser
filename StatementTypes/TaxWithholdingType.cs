@@ -9,6 +9,7 @@ namespace MintosParser.StatementTypes {
         public TaxWithholdingType(DataRow row) : base(row) {
         }
 
+        /*
         public override string GetTransformerType()  {
             return "Steuern";
         }
@@ -20,6 +21,6 @@ namespace MintosParser.StatementTypes {
             dict.Add("ISIN", ISIN);
             dict.Add("Wertpapiername", LoanNumber);
             return dict;
-        }
+        }*/
     }
 }

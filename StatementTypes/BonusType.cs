@@ -9,11 +9,11 @@ namespace MintosParser.StatementTypes {
 
         public bool isCashback { get; set; }
         public BonusType(DataRow row) : base(row) {
-            if(row["Details"].ToString().Contains("Cashback bonus")) {
+            if(AdditionalDetails.Contains("Cashback bonus")) {
                 isCashback = true;
             }
         }
-
+/*
         public override string GetTransformerType()  {
             return "Zinsen";
         }
@@ -24,5 +24,6 @@ namespace MintosParser.StatementTypes {
             dict.Add("Notizen",(isCashback) ? "Cashback bonus" : "Reference bonus");
             return dict;
         }
+*/
     }
 }

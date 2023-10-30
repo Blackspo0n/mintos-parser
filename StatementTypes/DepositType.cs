@@ -16,7 +16,7 @@ namespace MintosParser.StatementTypes {
             if(row["Payment Type"].ToString() == "Deposits") movementType = DepotMovementType.Deposits;
             else movementType = DepotMovementType.Withdraw;
         }      
-
+/*
         public override string GetTransformerType()  {
             return (movementType == DepotMovementType.Deposits) ? "Einlage" : "Entnahme";
         }
@@ -27,6 +27,6 @@ namespace MintosParser.StatementTypes {
             dict.Add("Notizen",(movementType == DepotMovementType.Deposits) ? "Deposits" : "Withdraws");
             return dict;
         }
-
+*/
     }
 }

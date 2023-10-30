@@ -8,9 +8,10 @@ namespace MintosParser.StatementTypes {
         public override string outputType => "Fee";
         public bool isDiscount { get; set; }
         public SecondaryMarketFeeType(DataRow row) : base(row) {
-            if(row["Payment Type"].ToString().Contains("discount or premium")) isDiscount = true;
+            if((row["Payment Type"].ToString() ?? String.Empty).Contains("discount or premium")) isDiscount = true;
             else isDiscount = false;
         }
+        /*
         public override string GetTransformerType()  {
             return (value > 0)? "Gebühren": "Gebührenrückerstattung";
         }
@@ -22,6 +23,6 @@ namespace MintosParser.StatementTypes {
             dict.Add("ISIN", ISIN);
             dict.Add("Wertpapiername", LoanNumber);
             return dict;
-        } 
+        }*/
     }
 }

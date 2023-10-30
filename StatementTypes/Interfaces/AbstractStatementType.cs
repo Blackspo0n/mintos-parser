@@ -14,17 +14,15 @@ namespace MintosParser.StatementTypes {
         public DateTime date { get; set; }
         public string currency {get; set;}
         public abstract string outputType { get;}
-        public abstract string GetTransformerType();
-        public abstract Dictionary<string,object> GetTransformerFields();
 
         #endregion
         public AbstractStatementType(DataRow row) {
-            transactionId = row["Transaction ID:"].ToString();
-            date = DateTime.ParseExact(row["Date"].ToString(), "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
-            value = Double.Parse(row["Turnover"].ToString(), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
-            RawPaymentMethod = row["Payment Type"].ToString();
-            currency = row["Currency"].ToString();
-            AdditionalDetails = row["Details"].ToString();
+            transactionId = row["Transaction ID:"].ToString() ?? String.Empty;
+            date = DateTime.ParseExact(row["Date"].ToString() ?? String.Empty, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
+            value = Double.Parse(row["Turnover"].ToString() ?? "0", System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
+            RawPaymentMethod = row["Payment Type"].ToString() ?? String.Empty;
+            currency = row["Currency"].ToString() ?? String.Empty;
+            AdditionalDetails = row["Details"].ToString() ?? String.Empty;
 
         }
     }

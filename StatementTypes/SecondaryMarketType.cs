@@ -17,6 +17,7 @@ namespace MintosParser.StatementTypes {
             if(value > 0) side = MarketType.Buy;
             else side = MarketType.Sell;
         }
+        /**
         public override string GetTransformerType()  {
             return (side == MarketType.Buy) ? "Kauf" : "Verkauf";
         }
@@ -30,6 +31,6 @@ namespace MintosParser.StatementTypes {
             dict.Add("Stück",value);
             dict.Add("Wert", 1);
             return dict;
-        } 
+        } */
     }
 }

@@ -7,12 +7,7 @@ namespace MintosParser.StatementTypes {
         public DateTime date {get; set; }
         public string currency {get; set; }
         string RawPaymentMethod {get; }
-        
         public string outputType { get; }
-
         #endregion
-        public string GetTransformerType();
-
-        public Dictionary<string, object> GetTransformerFields();
     }
 }

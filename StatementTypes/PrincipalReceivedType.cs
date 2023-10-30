@@ -8,6 +8,7 @@ namespace MintosParser.StatementTypes {
         public override string outputType => "Movement";
         public PrincipalReceivedType(DataRow row) : base(row) {
         }
+        /*
         public override string GetTransformerType()  {
             return "Verkauf";
         }
@@ -19,7 +20,7 @@ namespace MintosParser.StatementTypes {
             dict.Add("ISIN", ISIN);
             dict.Add("Wertpapiername", LoanNumber);
             return dict;
-        } 
+        } */
 
     }
 }

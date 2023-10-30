@@ -8,10 +8,11 @@ namespace MintosParser.StatementTypes {
         public override string outputType => "Interest";
         public InterestReceivedType(DataRow row) : base(row) {
         }
+
+/*
         public override string GetTransformerType()  {
             return "Zinsen";
         }
-
         public override Dictionary<string, object> GetTransformerFields()
         {
             var dict = new Dictionary<string, object>();
@@ -20,6 +21,6 @@ namespace MintosParser.StatementTypes {
             dict.Add("Wertpapiername", LoanNumber);
             return dict;
         }   
-
+*/
     }
 }

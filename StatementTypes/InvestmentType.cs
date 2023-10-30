@@ -9,6 +9,7 @@ namespace MintosParser.StatementTypes {
         public override string outputType => "Investment";
         public InvestmentType(DataRow row) : base(row) {
         }        
+        /*
         public override string GetTransformerType()  {
             return "Kauf";
         }
@@ -20,6 +21,6 @@ namespace MintosParser.StatementTypes {
             dict.Add("ISIN", ISIN);
             dict.Add("Wertpapiername", LoanNumber);
             return dict;
-        }
+        }*/
     }
 }
