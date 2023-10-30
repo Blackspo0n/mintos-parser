@@ -28,7 +28,7 @@ namespace MintosParser {
                     logger.Info("Process payment type " + type.Key + " for aggregation " + group.Key);
                     IOutputStatementType? outputStatement = null;
                     foreach(var item in type) {
-                        outputStatement = OutputStatementFactory.Create(item);
+                        if(outputStatement == null) outputStatement = OutputStatementFactory.Create(item);
                         if(outputStatement == null) break; // break if we does not have any type for our output
 
                         outputStatement.AddStatementToAggregation(item);

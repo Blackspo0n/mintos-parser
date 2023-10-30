@@ -6,7 +6,7 @@ namespace MintosParser.OutputStatementTypes {
         #region properties
         public override string notes { get {
             return "Gebührenzusammenfasssung :" + Environment.NewLine + 
-            "Von: " + fromDate.ToString("dd.MM.yyyy") + " Bis: " + fromDate.ToString("dd.MM.yyyy") + 
+            "Von: " + fromDate.ToString("dd.MM.yyyy") + " Bis: " + toDate.ToString("dd.MM.yyyy") + 
             string.Join(Environment.NewLine, 
                 aggregatedStatementTypes.Select(x =>
                     "[" + x.date.ToString("HH:mm.ss dd.MM.yyyy") + "] " +
