@@ -50,6 +50,7 @@ namespace mintosParser {
             }
             catch (Exception err) {
                 logger.Error(err.Message, err);
+                return;
             }
 
             var list = parser.parse();
