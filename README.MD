@@ -28,6 +28,17 @@ To make it more flexible the program provides some options for formatting and co
   -a, --account-name <account-name>                    Account name which is used for Deposits and Withdraws. [default: Mintos]
 ```
 
+## Examples
+To generate a monthly report:
+```cli 
+mintos-parse.exe .\account-statement.csv .\pp-import.csv -ag monthly
+```
+
+To generate yearly report with different output seperator:
+```cli 
+mintos-parse.exe .\account-statement.csv .\pp-import.csv -ag yearly -os \t # stands for \t for tab
+```
+
 ## License
 Copyright &copy; 2023 by Mario Kellner. Released under the [MIT license](https://github.com/Blackspo0n/mintos-parser/blob/main/LICENSE).
 
