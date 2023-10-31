@@ -5,10 +5,10 @@ namespace MintosParser {
     class Aggregator {
         public enum AggregrationSpan {
             //none = -1 will implement it at a later stage
-            daily = 1,
-            monthly=2,
-            quarterly=3,
-            yearly = 4
+            daily,
+            monthly,
+            quarterly,
+            yearly
         }
         public static AggregrationSpan Aggregation { get; set;} = AggregrationSpan.quarterly;
 
