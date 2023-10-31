@@ -6,7 +6,7 @@
     <RootNamespace>mintos-parser</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationIcon>resources/app.ico</ApplicationIcon>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>            
     <!--<PublishDir>Binaries</PublishDir>
     <PublishProtocol>FileSystem</PublishProtocol>
