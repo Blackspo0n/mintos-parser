@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // Wenn Sie Zielframeworks geändert haben, stellen Sie sicher, dass Sie den Programmpfad aktualisieren.
-            "program": "${workspaceFolder}/bin/Debug/net7.0/mintos parser.dll",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/mintos-parser.dll",
             "args": [".\\SampleData\\account-statement.csv", ".\\SampleData\\text-mintos.csv"],
             "cwd": "${workspaceFolder}",
             // Weitere Informationen zum Feld \"Konsole\" finden Sie unter https://aka.ms/VSCode-CS-LaunchJson-Console

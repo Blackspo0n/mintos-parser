@@ -4,8 +4,8 @@ using MintosParser.StatementTypes;
 namespace MintosParser.OutputStatementTypes {
     public interface IOutputStatementType {
         #region properties
-        public DateTime fromDate { get; }
-        public DateTime toDate { get; }
+        public DateTime fromDate { get; set; }
+        public DateTime toDate { get; set; }
         public List<IStatementType> aggregatedStatementTypes {get; set;}
         public DateTime outputDate {get; }
         // This is Decimal, because it can only be two diggests afterwards

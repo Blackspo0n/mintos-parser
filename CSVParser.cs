@@ -12,13 +12,15 @@ namespace MintosParser {
         
         public InputStatementFile currentFile { get; set; }
 
-        public string delimiter {get; private set;}
+        public string delimiter {get; private set;} = ",";
 
-        public Encoding encoding {get; private set; }
+        public Encoding encoding {get; private set; } = Encoding.Default;
         public CSVParser(InputStatementFile file) {
             currentFile = file;
-            fileTable = new DataTable();
-            fileTable.TableName = "StatementReport";
+            fileTable = new DataTable
+            {
+                TableName = "StatementReport"
+            };
         }
 
         public void setParsingOptions(string delimiter, Encoding encoding) {
@@ -27,9 +29,10 @@ namespace MintosParser {
         }
 
         public void loadCSV () {
-            var Reader = new TextFieldParser(currentFile.path.FullName, this.encoding);
-
-            Reader.TextFieldType = FieldType.Delimited;
+            var Reader = new TextFieldParser(currentFile.path.FullName, this.encoding)
+            {
+                TextFieldType = FieldType.Delimited,
+            };
             Reader.SetDelimiters(this.delimiter);
 
             string[] headers = Reader.ReadFields();

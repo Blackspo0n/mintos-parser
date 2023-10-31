@@ -3,14 +3,8 @@ using MintosParser.StatementTypes;
 namespace MintosParser.OutputStatementTypes {
     public abstract class AbstractOutputStatementType : IOutputStatementType {
         #region properties
-        public DateTime fromDate { get{
-            var date = aggregatedStatementTypes.OrderBy(x => x.date).First().date;
-            return new DateTime(date.Year, date.Month, 1);
-        }}
-        public DateTime toDate  { get{
-            var date = aggregatedStatementTypes.OrderBy(x => x.date).First().date;
-            return new DateTime(date.Year, date.Month, 1).AddMonths(1).AddDays(-1);
-        }}
+        public DateTime fromDate { get; set;}
+        public DateTime toDate  {get; set;}
         public List<IStatementType> aggregatedStatementTypes {get; set;}
         public DateTime outputDate {get => toDate; }
         // This is Decimal, because it can only be two diggests afterwards

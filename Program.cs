@@ -58,8 +58,7 @@ namespace mintosParser {
 
             Transformer.AccountName = context.ParseResult.GetValueForOption(AccountNameOption) ?? String.Empty;
             //Transformer.DepotName = context.ParseResult.GetValueForOption(DepotNameOption) ?? String.Empty;
-           
-
+        
             //outputFile.outputDataTable = Compactor.Compact(outputFile.outputDataTable);
             var aggregatedList = Aggregator.Aggregate(list);
             Transformer.Transform(aggregatedList, outputFile);
