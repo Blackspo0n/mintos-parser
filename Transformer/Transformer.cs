@@ -1,6 +1,4 @@
 using MintosParser.OutputStatementTypes;
-using MintosParser.StatementTypes;
-
 
 namespace MintosParser {
     class Transformer {

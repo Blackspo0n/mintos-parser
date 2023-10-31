@@ -1,15 +1,10 @@
-using System.Data;
-using System.Reflection.Metadata.Ecma335;
 using MintosParser.OutputStatementTypes;
 using MintosParser.StatementTypes;
-using NLog;
 
 namespace MintosParser {
     class Aggregator {
-        private static Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
-        // @TODO: Make Aggregration configurable
         public enum AggregrationSpan {
+            //none = -1 will implement it at a later stage
             daily = 1,
             monthly=2,
             quarterly=3,
@@ -26,7 +21,7 @@ namespace MintosParser {
                 var types = group.GroupBy(x => x.outputType);
 
                 foreach(var type in types) {
-                    logger.Info("Process payment type " + type.Key + " for aggregation " + group.Key);
+                    Console.WriteLine("Process payment type " + type.Key + " for aggregation " + group.Key);
                     IOutputStatementType? outputStatement = null;
                     foreach(var item in type) {
                         if(outputStatement == null) {

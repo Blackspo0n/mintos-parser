@@ -1,5 +1,4 @@
 using System.Data;
-using NLog;
 
 namespace MintosParser.StatementTypes {
 
@@ -7,7 +6,6 @@ namespace MintosParser.StatementTypes {
     {
         #region properties
         public string AdditionalDetails { get; set; }
-        public Logger logger = LogManager.GetCurrentClassLogger();
         public string RawPaymentMethod {get; private set; }
         public string transactionId { get; set ; }
         public double value { get; set; }

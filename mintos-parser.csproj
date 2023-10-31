@@ -7,16 +7,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationIcon>app.ico</ApplicationIcon>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>            
+    <PublishDir>Binaries</PublishDir>
+    <PublishProtocol>FileSystem</PublishProtocol>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
   </PropertyGroup>
   <ItemGroup>
-    <None Update="nlog.config" CopyToOutputDirectory="Always" />
-    <Content Include="SampleData/*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content> 
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NLog" Version="5.2.5" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.5" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
   </ItemGroup>
 </Project>

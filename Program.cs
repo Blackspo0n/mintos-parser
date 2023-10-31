@@ -1,6 +1,4 @@
 ﻿using MintosParser;
-using NLog;
-using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Text;
@@ -10,12 +8,11 @@ namespace mintosParser {
     class Program
     {
         #region static properties
-        private static Logger logger = LogManager.GetCurrentClassLogger();
         public static OutputStatementFile? outputFile { get; set;}
         public static InputStatementFile? inputFile { get; set; }
         public static CSVParser? parser { get; set; }
-        public static Option<LogLevel> logLevelOption = new Option<LogLevel>("--loglevel", (value) => NLog.LogLevel.Info, true);
         public static Option<string> outputEncodingOption = new Option<string>(new string[]{"--output-encoding", "-oe"}, (value) => "utf-8", true, "Output Encoding of the csv file");
+        public static Option<Aggregator.AggregrationSpan> aggregationOption = new Option<Aggregator.AggregrationSpan>(new string[] { "--aggregation", "-ag" }, (value) => Aggregator.AggregrationSpan.monthly, true, "Output Encoding of the csv file");
         public static Option<string> inputEncodingOption = new Option<string>(new string[]{"--input-encoding", "-ie"}, (value) => "utf-8", true, "Input Encoding of the csv file");
         //public static Option<string> inputLanguageOption = new Option<string>(new string[]{"--input-language", "-il"}, (value) => "en", true, "Langauge of the input csv file. Supported currently are: en");
         public static Option<string> inputSeperatorOption = new Option<string>(new string[]{"--input-seperator", "-is"}, (value) => ",", true, "CSV Seperator of the input file");
@@ -25,7 +22,7 @@ namespace mintosParser {
         public static Argument<FileInfo> InputFileArgument = new Argument<FileInfo>("input file", "Mintos CSV Input Path");
         public static Argument<FileInfo> OutputFileArgument = new Argument<FileInfo>("output file","Output Path for Portfolio Performance CSV File");
         public static RootCommand rootCommand = new RootCommand("Mintos CSV parser transforms mintos CSV statementfiles into CSV files that can be easily imported by Portfolio Performance") {
-            logLevelOption, outputEncodingOption, inputEncodingOption, inputSeperatorOption, outputSeperatorOption,AccountNameOption, InputFileArgument, OutputFileArgument
+            aggregationOption,outputEncodingOption, inputEncodingOption, inputSeperatorOption, outputSeperatorOption,AccountNameOption, InputFileArgument, OutputFileArgument
         };
 
         #endregion
@@ -36,20 +33,19 @@ namespace mintosParser {
         }
 
         public static void Runner(InvocationContext context) {
-            NLog.LogManager.GlobalThreshold = context.ParseResult.GetValueForOption(logLevelOption);
             inputFile = new InputStatementFile(context.ParseResult.GetValueForArgument(InputFileArgument));
             outputFile = new OutputStatementFile(context.ParseResult.GetValueForArgument(OutputFileArgument));
-            logger.Info("Inputfile: " + inputFile.path.FullName);
-            logger.Info("Outputfile: " + outputFile.path.FullName);
+            Console.WriteLine("Inputfile: " + inputFile.path.FullName);
+            Console.WriteLine("Outputfile: " + outputFile.path.FullName);
 
             parser = new CSVParser(inputFile);
-            parser.setParsingOptions(context.ParseResult.GetValueForOption(inputSeperatorOption) ?? ",", Encoding.GetEncoding(context.ParseResult.GetValueForOption(inputEncodingOption)??"utf-8"));
+            parser.SetParsingOptions(context.ParseResult.GetValueForOption(inputSeperatorOption) ?? ",", Encoding.GetEncoding(context.ParseResult.GetValueForOption(inputEncodingOption)??"utf-8"));
             
             try {
-                parser.loadCSV();
+                parser.LoadCSV();
             }
             catch (Exception err) {
-                logger.Error(err.Message, err);
+                Console.WriteLine(err.Message, err);
                 return;
             }
 
@@ -60,6 +56,9 @@ namespace mintosParser {
             //Transformer.DepotName = context.ParseResult.GetValueForOption(DepotNameOption) ?? String.Empty;
         
             //outputFile.outputDataTable = Compactor.Compact(outputFile.outputDataTable);
+            Aggregator.Aggregation = context.ParseResult.GetValueForOption(aggregationOption);
+
+            Console.WriteLine("Use aggregation " + Aggregator.Aggregation.ToString());
             var aggregatedList = Aggregator.Aggregate(list);
             Transformer.Transform(aggregatedList, outputFile);
             //outputFile.outputDataTable = Aggregator.Normalize(outputFile.outputDataTable);

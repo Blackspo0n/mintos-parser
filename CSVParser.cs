@@ -2,58 +2,52 @@ using System.Data;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
 using MintosParser.StatementTypes;
-using NLog;
 
 namespace MintosParser {
     class CSVParser {
-        private Logger logger = LogManager.GetCurrentClassLogger();
         
-        private DataTable fileTable { get; set; }
+        private DataTable FileTable { get; set; }
         
-        public InputStatementFile currentFile { get; set; }
+        public InputStatementFile CurrentFile { get; set; }
 
-        public string delimiter {get; private set;} = ",";
+        public string Delimiter {get; private set;} = ",";
 
-        public Encoding encoding {get; private set; } = Encoding.Default;
+        public Encoding Encoding {get; private set; } = Encoding.Default;
         public CSVParser(InputStatementFile file) {
-            currentFile = file;
-            fileTable = new DataTable
-            {
-                TableName = "StatementReport"
-            };
+            CurrentFile = file;
+            FileTable = new DataTable();
         }
 
-        public void setParsingOptions(string delimiter, Encoding encoding) {
-            this.delimiter = delimiter;
-            this.encoding = encoding;
+        public void SetParsingOptions(string delimiter, Encoding encoding) {
+            Delimiter = delimiter;
+            Encoding = encoding;
         }
 
-        public void loadCSV () {
-            var Reader = new TextFieldParser(currentFile.path.FullName, this.encoding)
+        public void LoadCSV () {
+            var Reader = new TextFieldParser(CurrentFile.path.FullName, Encoding)
             {
                 TextFieldType = FieldType.Delimited,
             };
-            Reader.SetDelimiters(this.delimiter);
+            Reader.SetDelimiters(this.Delimiter);
 
             string[] headers = Reader.ReadFields();
 
             foreach(string header in headers) {
-                fileTable.Columns.Add(header);
+                FileTable.Columns.Add(header);
             }
 
             while (!Reader.EndOfData) {
-                fileTable.Rows.Add(Reader.ReadFields());
+                FileTable.Rows.Add(Reader.ReadFields());
             }
 
-            logger.Info("CSV file loaded successfully");
+            Console.WriteLine("CSV file loaded successfully");
         }
 
         public List<IStatementType> parse() {
             var list = new List<IStatementType>();
+            Console.WriteLine("Parse CSV file");
 
-            logger.Info("Parse CSV file");
-
-            foreach (DataRow row in fileTable.Rows) {
+            foreach (DataRow row in FileTable.Rows) {
                 IStatementType type = StatementTypeFactory.GetStatementType(row["Payment Type"].ToString(), row);
                 list.Add(type);
             }

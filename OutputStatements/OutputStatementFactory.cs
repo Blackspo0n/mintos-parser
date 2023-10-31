@@ -1,23 +1,20 @@
 using System.Xml.Schema;
 using MintosParser.StatementTypes;
-using NLog;
 
 namespace MintosParser.OutputStatementTypes {
     public class OutputStatementFactory {
-        private static Logger logger = NLog.LogManager.GetCurrentClassLogger();
         public static IOutputStatementType? Create(IStatementType statement) {
-
             Type? type = Type.GetType($"MintosParser.OutputStatementTypes.{statement.outputType}OutputStatementType");
-            if(type != null){
+            if(type != null) {
                 try {
-                return (IOutputStatementType?)Activator.CreateInstance(type);
+                    return (IOutputStatementType?)Activator.CreateInstance(type);
+                }
+                catch(Exception err) {
+                    Console.WriteLine("Output Statement for " + statement.outputType + " cannot be created! Skipping ...", err);
+                }
             }
-            catch(Exception err) {
-                logger.Info("Output Statement for " + statement.outputType + " does not exists! Skipping ...", err);
-            }
-            }
+
             return null;
         }
-
     }
 }

@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace MintosParser {
