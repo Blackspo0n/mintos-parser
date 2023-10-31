@@ -32,7 +32,7 @@ To make it more flexible the program provides some options for formatting and co
 Copyright &copy; 2023 by Mario Kellner. Released under the [MIT license](https://github.com/Blackspo0n/mintos-parser/blob/main/LICENSE).
 
 ## Road map
-### The following features are already in a useable state:
+### The following features are already in an useable state:
 
 * [X] Options for commandline
   * [X] Encoding and Delimiter for both output and input
@@ -59,4 +59,4 @@ You can develop in Visual Studio Code too.
 ## Disclaimer
 [Portfolio Performance](https://www.portfolio-performance.info) is a software product for individuals with finance background. Although I try my best to provide correct values, the restriction of the "Wert" field only allowing two additional diggest can provide rounding differences. Double check the official numbers first!
 
-A am not affiliated with portfolio performance. I am just an enthusiast with want to track down my portfolio as correct as I can.
+A am not affiliated with portfolio performance. I am just an enthusiast which want to track down my portfolio as correct as I can.
