@@ -6,6 +6,7 @@ namespace MintosParser {
         public enum AggregrationSpan {
             //none = -1 will implement it at a later stage
             daily,
+            weekly,
             monthly,
             quarterly,
             yearly
@@ -46,6 +47,7 @@ namespace MintosParser {
             return Aggregation switch
             {
                 AggregrationSpan.daily => x => x.Date.ToString("yyyy.MM.dd"),
+                AggregrationSpan.weekly => x => x.Date.AddDays(-(int)x.Date.DayOfWeek+1).ToString("yyyy.MM.dd"),
                 AggregrationSpan.monthly => x => x.Date.ToString("yyyy.MM"),
                 AggregrationSpan.quarterly => x => "quarter " +  (((x.Date.Month - 1) / 3) + 1) + " of " + x.Date.ToString("yyyy"),// more readable in console
                 _ => x => x.Date.ToString("yyyy"),
@@ -56,6 +58,7 @@ namespace MintosParser {
             return Aggregation switch
             {
                 AggregrationSpan.daily => new DateTime(date.Year, date.Month, date.Day),
+                AggregrationSpan.weekly => date.AddDays(-(int)date.DayOfWeek+1),
                 AggregrationSpan.monthly => new DateTime(date.Year, date.Month, 1),
                 AggregrationSpan.quarterly => new DateTime(date.Year, (((date.Month - 1) / 3 + 1) - 1) * 3 + 1, 1),
                 _ => new DateTime(date.Year, 1, 1),
@@ -66,6 +69,7 @@ namespace MintosParser {
             return Aggregation switch
             {
                 AggregrationSpan.daily => new DateTime(date.Year, date.Month, date.Day).AddDays(1).AddMilliseconds(-1),
+                AggregrationSpan.weekly => date.AddDays(-(int)date.DayOfWeek+1).AddDays(6),
                 AggregrationSpan.monthly => new DateTime(date.Year, date.Month, 1).AddMonths(1).AddDays(-1),
                 AggregrationSpan.quarterly => new DateTime(date.Year, (((date.Month - 1) / 3 + 1) - 1) * 3 + 1, 1).AddMonths(3).AddDays(-1),
                 _ => new DateTime(date.Year, 1, 1).AddYears(1).AddDays(-1),
