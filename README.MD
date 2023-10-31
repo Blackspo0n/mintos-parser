@@ -51,7 +51,8 @@ Copyright &copy; 2023 by Mario Kellner. Released under the [MIT license](https:/
 * [X] All position displayed in notes
 * [X] Agregate statements
   * [X] daily
-  * [X] quartly
+  * [X] monthly
+  * [X] quarterly
   * [X] yearly
 
 ### The following features are active in development:
