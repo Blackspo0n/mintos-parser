@@ -10,17 +10,17 @@ The input statements must be csv files. This program includes the most statement
  
 ```cli
 Usage:
-  mintosparser <input file> <output file> [options]
+  mintos-parser <input file> [<output file>] [options]
 
 Arguments:
   <input file>   Mintos CSV Input Path
-  <output file>  Output Path for Portfolio Performance CSV File
+  <output file>  Output Path for Portfolio Performance CSV File [default: .\pp-import.csv]
 ```
 
 ## Options
 To make it more flexible the program provides some options for formatting and configurating the output file.
 ```cli
-  -ag, --aggregation <daily|monthly|quarterly|yearly>  Output Encoding of the csv file [default: monthly]
+  -ag, --aggregation <daily|monthly|quarterly|yearly>  Aggregate the statement. The statemets are normalized to the end of the aggregation date. [default: monthly]
   -oe, --output-encoding <output-encoding>             Output Encoding of the csv file [default: utf-8]
   -ie, --input-encoding <input-encoding>               Input Encoding of the csv file [default: utf-8]
   -is, --input-seperator <input-seperator>             CSV Seperator of the input file [default: ,]
