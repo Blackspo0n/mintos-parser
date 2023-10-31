@@ -58,13 +58,13 @@ Copyright &copy; 2023 by Mario Kellner. Released under the [MIT license](https:/
 
 * [ ] Lot of statement types are missed because I don´t have all in my own statement file
 * [ ] Tracking individual loans (not aggregated) with a corresponding Depot depot
-    > actually this was the first thing I tried but due to the restriction that every depot security need a specified amount this wasn´t going to work. I desided to "ignore" the investments and the principal returned on my account for now.
+    > Actually this was the first thing I tried but due to the restriction that every depot investment needs a specified amount this wasn´t going to work. I desided to "ignore" the investments and the principal returned on my account for now.
 * [ ] Language detection and usage for csv file
-* [ ] Option for now aggregation
-    > I need a solution for this. currently it would ending up into many position with 0,00 because PP would round it down.
+* [ ] Option for aggregation=none
+    > I need a solution for this. Currently it would ending up into many position with 0,00 because PP would round it down.
 
 ## Development
-This is a CSharp project. if you want to contribute or build it by your own you need at least .NET SDK and VS Code.
+This is a CSharp project. If you want to contribute or build it by your own you need at least .NET SDK and VS Code.
 You can develop in Visual Studio Code too.
 
 ## Disclaimer
