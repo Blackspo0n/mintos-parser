@@ -11,19 +11,19 @@ namespace mintosParser {
         public static OutputStatementFile? OutputFile { get; set;}
         public static InputStatementFile? InputFile { get; set; }
         public static CSVParser? Parser { get; set; }
-        public static Option<string> outputEncodingOption = new Option<string>(new string[]{"--output-encoding", "-oe"}, () => "utf-8", "Output Encoding of the csv file");
+        public static Option<string> outputEncodingOption = new Option<string>(new string[]{"--output-encoding", "-oe"}, () => "utf-8", "Output encoding of the csv file");
         public static Option<Aggregator.AggregrationSpan> aggregationOption = new Option<Aggregator.AggregrationSpan>(
             new string[] { "--aggregation", "-ag" }, () => Aggregator.AggregrationSpan.monthly, "Aggregate the statement. The statemets are normalized to the end of the aggregation date."
         );
-        public static Option<string> inputEncodingOption = new Option<string>(new string[]{"--input-encoding", "-ie"}, () => "utf-8", "Input Encoding of the csv file");
+        public static Option<string> inputEncodingOption = new Option<string>(new string[]{"--input-encoding", "-ie"}, () => "utf-8", "Input encoding of the csv file");
         //public static Option<string> inputLanguageOption = new Option<string>(new string[]{"--input-language", "-il"}, (value) => "en", true, "Langauge of the input csv file. Supported currently are: en");
-        public static Option<string> inputSeperatorOption = new Option<string>(new string[]{"--input-seperator", "-is"}, () => ",", "CSV Seperator of the input file");
-        public static Option<string> outputSeperatorOption = new Option<string>(new string[]{"--output-seperator", "-os"}, () => ";", "CSV Seperator of the output file");
+        public static Option<string> inputSeperatorOption = new Option<string>(new string[]{"--input-seperator", "-is"}, () => ",", "CSV seperator of the input file");
+        public static Option<string> outputSeperatorOption = new Option<string>(new string[]{"--output-seperator", "-os"}, () => ";", "CSV seperator of the output file");
         //public static Option<string> DepotNameOption = new Option<string>(new string[]{"--depot-name","-d"}, (value) => "Mintos", true, "Depot name which will be used to reference the loans.");
-        public static Option<string> AccountNameOption = new Option<string>(new string[]{"--account-name","-a"}, () => "Mintos", "Account name which is used for Deposits and Withdraws.");
-        public static Argument<FileInfo> InputFileArgument = new Argument<FileInfo>("input file", "Mintos CSV Input Path");
-        public static Argument<FileInfo> OutputFileArgument = new Argument<FileInfo>("output file",() => new FileInfo(".\\pp-import.csv"),"Output Path for Portfolio Performance CSV File");
-        public static RootCommand rootCommand = new RootCommand("Mintos CSV parser transforms mintos CSV statementfiles into CSV files that can be easily imported by Portfolio Performance") {
+        public static Option<string> AccountNameOption = new Option<string>(new string[]{"--account-name","-a"}, () => "Mintos", "Account name which is used for deposits and withdraws.");
+        public static Argument<FileInfo> InputFileArgument = new Argument<FileInfo>("input file", "Mintos csv input path");
+        public static Argument<FileInfo> OutputFileArgument = new Argument<FileInfo>("output file",() => new FileInfo(".\\pp-import.csv"),"Output Path for Portfolio Performance csv file");
+        public static RootCommand rootCommand = new RootCommand("mintos-parser transforms mintos csv statement files into csv files that can be easily imported by Portfolio Performance") {
             aggregationOption, outputEncodingOption, inputEncodingOption, inputSeperatorOption, outputSeperatorOption,AccountNameOption, InputFileArgument, OutputFileArgument
         };
 
