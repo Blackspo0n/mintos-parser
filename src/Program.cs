@@ -8,9 +8,9 @@ namespace mintosParser {
     class Program
     {
         #region static properties
-        public static OutputStatementFile? outputFile { get; set;}
-        public static InputStatementFile? inputFile { get; set; }
-        public static CSVParser? parser { get; set; }
+        public static OutputStatementFile? OutputFile { get; set;}
+        public static InputStatementFile? InputFile { get; set; }
+        public static CSVParser? Parser { get; set; }
         public static Option<string> outputEncodingOption = new Option<string>(new string[]{"--output-encoding", "-oe"}, () => "utf-8", "Output Encoding of the csv file");
         public static Option<Aggregator.AggregrationSpan> aggregationOption = new Option<Aggregator.AggregrationSpan>(
             new string[] { "--aggregation", "-ag" }, () => Aggregator.AggregrationSpan.monthly, "Aggregate the statement. The statemets are normalized to the end of the aggregation date."
@@ -35,35 +35,35 @@ namespace mintosParser {
         }
 
         public static void Runner(InvocationContext context) {
-            inputFile = new InputStatementFile(context.ParseResult.GetValueForArgument(InputFileArgument));
-            outputFile = new OutputStatementFile(context.ParseResult.GetValueForArgument(OutputFileArgument));
+            InputFile = new InputStatementFile(context.ParseResult.GetValueForArgument(InputFileArgument));
+            OutputFile = new OutputStatementFile(context.ParseResult.GetValueForArgument(OutputFileArgument));
             Aggregator.Aggregation = context.ParseResult.GetValueForOption(aggregationOption);
-            Console.WriteLine("Inputfile: " + inputFile.path.FullName);
-            Console.WriteLine("Outputfile: " + outputFile.path.FullName);
+            Console.WriteLine("Inputfile: " + InputFile.Path.FullName);
+            Console.WriteLine("Outputfile: " + OutputFile.Path.FullName);
             Console.WriteLine("Use aggregation " + Aggregator.Aggregation.ToString());
 
-            parser = new CSVParser(inputFile);
-            parser.SetParsingOptions(context.ParseResult.GetValueForOption(inputSeperatorOption) ?? ",", Encoding.GetEncoding(context.ParseResult.GetValueForOption(inputEncodingOption)??"utf-8"));
+            Parser = new CSVParser(InputFile);
+            Parser.SetParsingOptions(context.ParseResult.GetValueForOption(inputSeperatorOption) ?? ",", Encoding.GetEncoding(context.ParseResult.GetValueForOption(inputEncodingOption)??"utf-8"));
             
             try {
-                parser.LoadCSV();
+                Parser.LoadCSV();
             }
             catch (Exception err) {
                 Console.WriteLine(err.Message, err);
                 return;
             }
 
-            var list = parser.parse();
-            outputFile.PrepareOutputFile();
+            var list = Parser.parse();
+            OutputFile.PrepareOutputFile();
 
-            Transformer.AccountName = context.ParseResult.GetValueForOption(AccountNameOption) ?? String.Empty;
+            Transformer.AccountName = context.ParseResult.GetValueForOption(AccountNameOption) ?? string.Empty;
             //Transformer.DepotName = context.ParseResult.GetValueForOption(DepotNameOption) ?? String.Empty;
         
             var aggregatedList = Aggregator.Aggregate(list);
-            Transformer.Transform(aggregatedList, outputFile);
+            Transformer.Transform(aggregatedList, OutputFile);
             
-            outputFile.SetParsingOptions(context.ParseResult.GetValueForOption(outputSeperatorOption) ?? String.Empty, Encoding.GetEncoding(context.ParseResult.GetValueForOption(outputEncodingOption)??"utf-8"));
-            outputFile.DoExport();
+            OutputFile.SetParsingOptions(context.ParseResult.GetValueForOption(outputSeperatorOption) ?? string.Empty, Encoding.GetEncoding(context.ParseResult.GetValueForOption(outputEncodingOption)??"utf-8"));
+            OutputFile.DoExport();
         }
     }
 }

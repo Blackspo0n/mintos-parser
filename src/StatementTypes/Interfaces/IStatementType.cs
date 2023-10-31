@@ -2,12 +2,12 @@ namespace MintosParser.StatementTypes {
     public interface IStatementType {
         #region properties
         public string AdditionalDetails { get; set; }
-        public string transactionId {get; set; }
-        public double value {get; set; }
-        public DateTime date {get; set; }
-        public string currency {get; set; }
+        public string TransactionId {get; set; }
+        public double Value {get; set; }
+        public DateTime Date {get; set; }
+        public string Currency {get; set; }
         string RawPaymentMethod {get; }
-        public string outputType { get; }
+        public string OutputType { get; }
         #endregion
     }
 }

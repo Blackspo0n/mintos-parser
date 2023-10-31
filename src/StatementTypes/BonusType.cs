@@ -5,7 +5,7 @@ namespace MintosParser.StatementTypes {
     class BonusType : AbstractStatementType, IStatementType
     {   
         
-        public override string outputType => "Account";
+        public override string OutputType => "Account";
 
         public bool isCashback { get; set; }
         public BonusType(DataRow row) : base(row) {

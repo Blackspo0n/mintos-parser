@@ -5,14 +5,13 @@ using MintosParser.StatementTypes;
 
 namespace MintosParser {
     class CSVParser {
-        
+        #region properties
         private DataTable FileTable { get; set; }
-        
         public InputStatementFile CurrentFile { get; set; }
-
         public string Delimiter {get; private set;} = ",";
-
         public Encoding Encoding {get; private set; } = Encoding.Default;
+        #endregion
+        
         public CSVParser(InputStatementFile file) {
             CurrentFile = file;
             FileTable = new DataTable();
@@ -24,7 +23,9 @@ namespace MintosParser {
         }
 
         public void LoadCSV () {
-            var Reader = new TextFieldParser(CurrentFile.path.FullName, Encoding)
+            Console.WriteLine("Load csv file ...");
+            
+            TextFieldParser Reader = new TextFieldParser(CurrentFile.Path.FullName, Encoding)
             {
                 TextFieldType = FieldType.Delimited,
             };
@@ -40,16 +41,16 @@ namespace MintosParser {
                 FileTable.Rows.Add(Reader.ReadFields());
             }
 
-            Console.WriteLine("CSV file loaded successfully");
         }
 
         public List<IStatementType> parse() {
+            Console.WriteLine("Parse CSV file ...");
+
             var list = new List<IStatementType>();
-            Console.WriteLine("Parse CSV file");
 
             foreach (DataRow row in FileTable.Rows) {
-                IStatementType type = StatementTypeFactory.GetStatementType(row["Payment Type"].ToString(), row);
-                list.Add(type);
+                IStatementType? type = StatementTypeFactory.GetStatementType(row["Payment Type"].ToString(), row);
+                if(type != null) list.Add(type);
             }
 
             return list;

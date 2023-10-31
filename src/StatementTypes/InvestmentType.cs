@@ -6,7 +6,7 @@ namespace MintosParser.StatementTypes {
     class InvestmentType : AbstractLoanType, IStatementType
     {   
         
-        public override string outputType => "Investment";
+        public override string OutputType => "Investment";
         public InvestmentType(DataRow row) : base(row) {
         }        
         /*

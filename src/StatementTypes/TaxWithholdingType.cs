@@ -5,7 +5,7 @@ namespace MintosParser.StatementTypes {
     class TaxWithholdingType : AbstractLoanType, IStatementType
     {   
         
-        public override string outputType => "Tax";
+        public override string OutputType => "Tax";
         public TaxWithholdingType(DataRow row) : base(row) {
         }
 

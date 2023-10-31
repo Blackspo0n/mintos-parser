@@ -6,25 +6,25 @@ namespace MintosParser.StatementTypes {
     {   
         public string ISIN { get; set; }
         public string LoanNumber { get; set; }
-        public bool isBuyback { get; set; }
-        public bool isPending { get; set; }
+        public bool IsBuyback { get; set; }
+        public bool IsPending { get; set; }
         public AbstractLoanType(DataRow row) : base(row) {
-            ISIN = String.Empty;
-            LoanNumber = String.Empty;
+            ISIN = string.Empty;
+            LoanNumber = string.Empty;
 
-            ExtractDetails(row["Details"].ToString()  ?? String.Empty);
-            if((row["Payment Type"].ToString() ?? String.Empty).Contains("repurchase") || (row["Payment Type"].ToString() ?? String.Empty).Contains("rebuy")) {
-                isBuyback = true;
+            ExtractDetails(row["Details"].ToString()  ?? string.Empty);
+            if((row["Payment Type"].ToString() ?? string.Empty).Contains("repurchase") || (row["Payment Type"].ToString() ?? string.Empty).Contains("rebuy")) {
+                IsBuyback = true;
             }
             else {
-                isBuyback = false;
+                IsBuyback = false;
             }
             
-            if((row["Payment Type"].ToString() ?? String.Empty).Contains("pending")) {
-                isPending = true;
+            if((row["Payment Type"].ToString() ?? string.Empty).Contains("pending")) {
+                IsPending = true;
             }
             else {
-                isPending = false;
+                IsPending = false;
             }
         }        
         public void ExtractDetails(string details)

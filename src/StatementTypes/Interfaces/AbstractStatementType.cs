@@ -7,20 +7,20 @@ namespace MintosParser.StatementTypes {
         #region properties
         public string AdditionalDetails { get; set; }
         public string RawPaymentMethod {get; private set; }
-        public string transactionId { get; set ; }
-        public double value { get; set; }
-        public DateTime date { get; set; }
-        public string currency {get; set;}
-        public abstract string outputType { get;}
+        public string TransactionId { get; set ; }
+        public double Value { get; set; }
+        public DateTime Date { get; set; }
+        public string Currency {get; set;}
+        public abstract string OutputType { get;}
 
         #endregion
         public AbstractStatementType(DataRow row) {
-            transactionId = row["Transaction ID:"].ToString() ?? String.Empty;
-            date = DateTime.ParseExact(row["Date"].ToString() ?? String.Empty, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
-            value = Double.Parse(row["Turnover"].ToString() ?? "0", System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
-            RawPaymentMethod = row["Payment Type"].ToString() ?? String.Empty;
-            currency = row["Currency"].ToString() ?? String.Empty;
-            AdditionalDetails = row["Details"].ToString() ?? String.Empty;
+            TransactionId = row["Transaction ID:"].ToString() ?? string.Empty;
+            Date = DateTime.ParseExact(row["Date"].ToString() ?? string.Empty, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
+            Value = double.Parse(row["Turnover"].ToString() ?? "0", System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
+            RawPaymentMethod = row["Payment Type"].ToString() ?? string.Empty;
+            Currency = row["Currency"].ToString() ?? string.Empty;
+            AdditionalDetails = row["Details"].ToString() ?? string.Empty;
 
         }
     }

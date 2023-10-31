@@ -5,10 +5,10 @@ namespace MintosParser.StatementTypes {
     class SecondaryMarketFeeType : AbstractLoanType, IStatementType
     {   
         
-        public override string outputType => "Fee";
+        public override string OutputType => "Fee";
         public bool isDiscount { get; set; }
         public SecondaryMarketFeeType(DataRow row) : base(row) {
-            if((row["Payment Type"].ToString() ?? String.Empty).Contains("discount or premium")) isDiscount = true;
+            if((row["Payment Type"].ToString() ?? string.Empty).Contains("discount or premium")) isDiscount = true;
             else isDiscount = false;
         }
         /*

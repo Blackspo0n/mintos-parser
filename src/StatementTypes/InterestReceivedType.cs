@@ -5,7 +5,7 @@ namespace MintosParser.StatementTypes {
     class InterestReceivedType : AbstractLoanType, IStatementType
     {   
         
-        public override string outputType => "Interest";
+        public override string OutputType => "Interest";
         public InterestReceivedType(DataRow row) : base(row) {
         }
 

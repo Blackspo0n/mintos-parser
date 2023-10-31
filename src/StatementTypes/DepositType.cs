@@ -5,7 +5,7 @@ namespace MintosParser.StatementTypes {
     class DepotType : AbstractStatementType, IStatementType
     {   
         
-        public override string outputType => "Account";
+        public override string OutputType => "Account";
         public enum DepotMovementType {
             Deposits = 0,
             Withdraw = 1,

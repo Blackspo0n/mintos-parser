@@ -18,7 +18,7 @@ namespace MintosParser {
 
             var groupedStatements = statementTable.GroupBy(AggregationFilter());
             foreach (var group in groupedStatements) {
-                var types = group.GroupBy(x => x.outputType);
+                var types = group.GroupBy(x => x.OutputType);
 
                 foreach(var type in types) {
                     Console.WriteLine("Process payment type " + type.Key + " for aggregation " + group.Key);
@@ -28,8 +28,8 @@ namespace MintosParser {
                             outputStatement = OutputStatementFactory.Create(item);
                             if(outputStatement == null) break; // break if we does not have any type for our output
                             else {
-                                outputStatement.fromDate = AggregrationBeginDate(item.date);
-                                outputStatement.toDate = AggregrationEndDate(item.date);
+                                outputStatement.FromDate = AggregrationBeginDate(item.Date);
+                                outputStatement.ToDate = AggregrationEndDate(item.Date);
                             }
                         }
                         outputStatement.AddStatementToAggregation(item);
@@ -45,10 +45,10 @@ namespace MintosParser {
         {
             return Aggregation switch
             {
-                AggregrationSpan.daily => x => x.date.ToString("yyyy.MM.dd"),
-                AggregrationSpan.monthly => x => x.date.ToString("yyyy.MM"),
-                AggregrationSpan.quarterly => x => "quarter " +  (((x.date.Month - 1) / 3) + 1) + " of " + x.date.ToString("yyyy"),// more readable in console
-                _ => x => x.date.ToString("yyyy"),
+                AggregrationSpan.daily => x => x.Date.ToString("yyyy.MM.dd"),
+                AggregrationSpan.monthly => x => x.Date.ToString("yyyy.MM"),
+                AggregrationSpan.quarterly => x => "quarter " +  (((x.Date.Month - 1) / 3) + 1) + " of " + x.Date.ToString("yyyy"),// more readable in console
+                _ => x => x.Date.ToString("yyyy"),
             };
         }
 

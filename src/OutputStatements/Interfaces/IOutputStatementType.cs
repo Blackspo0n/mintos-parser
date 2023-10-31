@@ -1,18 +1,17 @@
-using System.Data;
 using MintosParser.StatementTypes;
 
 namespace MintosParser.OutputStatementTypes {
     public interface IOutputStatementType {
         #region properties
-        public DateTime fromDate { get; set; }
-        public DateTime toDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
         public List<IStatementType> aggregatedStatementTypes {get; set;}
-        public DateTime outputDate {get; }
+        public DateTime OutputDate {get; }
         // This is Decimal, because it can only be two diggests afterwards
-        public Decimal outputValue { get; }
-        public string currency {get; }
-        public string notes { get; }
-        public string type { get; }
+        public decimal OutputValue { get; }
+        public string Currency {get; }
+        public string Notes { get; }
+        public string Type { get; }
         #endregion
 
         #region method to implement

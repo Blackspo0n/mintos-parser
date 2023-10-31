@@ -1,9 +1,9 @@
 namespace MintosParser {
     class InputStatementFile {
-        public FileInfo path { get; set; }
+        public FileInfo Path { get; set; }
 
         public InputStatementFile(FileInfo path) {
-            this.path = path;
+            Path = path;
         }
     }
 }

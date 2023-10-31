@@ -5,10 +5,11 @@ namespace MintosParser.StatementTypes {
     class StatementTypeFactory
     {
         
-        public static IStatementType GetStatementType (string PaymentType, DataRow row) {
+        public static IStatementType? GetStatementType (string? PaymentType, DataRow row) {
             switch (PaymentType) {
                 default:
-                    throw new ArgumentException("Statement Type " + PaymentType + " not supported");
+                    Console.WriteLine("Statement " + PaymentType + " found but is not jet supported");
+                    return null; 
                 case "Deposits":
                 case "Withdraw":
                     return new DepotType(row);

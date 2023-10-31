@@ -5,7 +5,7 @@ namespace MintosParser.StatementTypes {
     class PrincipalReceivedType : AbstractLoanType, IStatementType
     {   
         
-        public override string outputType => "Movement";
+        public override string OutputType => "Movement";
         public PrincipalReceivedType(DataRow row) : base(row) {
         }
         /*
