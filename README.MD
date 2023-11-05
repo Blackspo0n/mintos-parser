@@ -1,7 +1,7 @@
  # mintos Parser
 🛠 In active development 🛠
 
-This console application transforms a given account statement file from mintos into a functional portfolio performance file to import asinto anaccount (Konto in german).
+This console application transforms a given account statement file from mintos into a functional portfolio performance file to import into an account (Konto in german).
 
 The input statements must be csv files. This program includes the most statement types (e.g. taxas, interesst, bonus, deposits).
 > It is pretty early in development. The goal is to provide additional parameters for the aggregation and even a solution to track each individuals loans. Also I want to add language parameters to be independend of the input format. 
