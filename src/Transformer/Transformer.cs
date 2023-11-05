@@ -4,6 +4,7 @@ namespace MintosParser {
     class Transformer {
         // public static string DepotName { get; set; } = String.Empty;
         public static string AccountName { get; set; } = string.Empty;
+        public static bool CreateNotes {get; set;} = true;
         
         public static void Transform(List<IOutputStatementType> statements, OutputStatementFile outputFile) {
             foreach(IOutputStatementType statement in statements) {
@@ -17,7 +18,7 @@ namespace MintosParser {
                 dr["Konto"] = escapeCell(AccountName);
                 dr["Typ"] = escapeCell(statement.Type);
                 dr["Buchungswährung"] = escapeCell(statement.Currency);
-                dr["Notiz"] = escapeCell(statement.Notes);
+                if(CreateNotes) dr["Notiz"] = escapeCell(statement.Notes);
 
                 outputFile.OutputDataTable.Rows.Add(dr);
             }

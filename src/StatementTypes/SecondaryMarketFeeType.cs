@@ -6,10 +6,10 @@ namespace MintosParser.StatementTypes {
     {   
         
         public override string OutputType => "Fee";
-        public bool isDiscount { get; set; }
+        public bool IsDiscount { get; set; }
         public SecondaryMarketFeeType(DataRow row) : base(row) {
-            if((row["Payment Type"].ToString() ?? string.Empty).Contains("discount or premium")) isDiscount = true;
-            else isDiscount = false;
+            if((row["Payment Type"].ToString() ?? string.Empty).Contains("discount or premium")) IsDiscount = true;
+            else IsDiscount = false;
         }
         /*
         public override string GetTransformerType()  {

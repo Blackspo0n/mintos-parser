@@ -31,6 +31,7 @@ namespace MintosParser {
                             else {
                                 outputStatement.FromDate = AggregrationBeginDate(item.Date);
                                 outputStatement.ToDate = AggregrationEndDate(item.Date);
+                                
                             }
                         }
                         outputStatement.AddStatementToAggregation(item);
