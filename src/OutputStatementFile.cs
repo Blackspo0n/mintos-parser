@@ -15,8 +15,8 @@ namespace MintosParser {
         }
 
         public void SetParsingOptions(string delimiter, Encoding encoding) {
-            this.Delimiter = delimiter;
-            this.Encoding = encoding;
+            Delimiter = delimiter;
+            Encoding = encoding;
         }
 
         public void PrepareOutputFile() {
@@ -37,7 +37,9 @@ namespace MintosParser {
         }
 
         public void DoExport() {
-            StringBuilder sb = new StringBuilder();
+            Console.WriteLine("Write csv file using " + Encoding.EncodingName + " and with delimiter \"" + Delimiter + "\" to path:");
+            Console.WriteLine(Path.FullName);
+            StringBuilder sb = new();
 
             sb.AppendLine(string.Join(Delimiter, OutputDataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName)));
 

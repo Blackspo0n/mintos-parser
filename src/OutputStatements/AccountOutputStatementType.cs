@@ -5,7 +5,7 @@ namespace MintosParser.OutputStatementTypes {
             return "Kontobewegungen:" + Environment.NewLine + 
             "Von: " + FromDate.ToString("dd.MM.yyyy") + " Bis: " + ToDate.ToString("dd.MM.yyyy") + Environment.NewLine + 
             string.Join(Environment.NewLine, 
-                aggregatedStatementTypes.Select(x =>
+                AggregatedStatementTypes.Select(x =>
                     "[" + x.Date.ToString("HH:mm.ss dd.MM.yyyy") + "] " +
                     ((x.Value > 0) ? "Einlage" : "Entnahme") + " " +
                     x.Value.ToString() + " " + x.Currency + " " +

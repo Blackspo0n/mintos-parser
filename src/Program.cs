@@ -1,4 +1,5 @@
 ﻿using MintosParser;
+using MintosParser.Loans;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Text;
@@ -13,6 +14,7 @@ namespace mintosParser {
         public static CSVParser? Parser { get; set; }
         public static Option<string> outputEncodingOption = new(new string[]{"--output-encoding", "-oe"}, () => "utf-8", "Output encoding of the csv file");
         public static Option<bool> summarizeOption = new(new string[]{"--notes", "-n"}, () => true, "Generate Notes with summarize every position in the given aggregation.");
+        public static Option<bool> excludeUnfinishedAggregation = new(new string[]{"--excludeNotFinishedAggregation", "-eua"}, () => false, "Exclude aggregations which has the end date higher than today.");
         public static Option<Aggregator.AggregrationSpan> aggregationOption = new(
             new string[] { "--aggregation", "-ag" }, () => Aggregator.AggregrationSpan.monthly, "Aggregate the statement. The statemets are normalized to the end of the aggregation date."
         );
@@ -25,7 +27,7 @@ namespace mintosParser {
         public static Argument<FileInfo> InputFileArgument = new("input file", "Mintos csv input path");
         public static Argument<FileInfo> OutputFileArgument = new("output file",() => new FileInfo(".\\pp-import.csv"), "Output Path for Portfolio Performance csv file");
         public static RootCommand rootCommand = new("mintos-parser transforms mintos csv statement files into csv files that can be easily imported by Portfolio Performance") {
-            aggregationOption, outputEncodingOption, inputEncodingOption, inputSeperatorOption, outputSeperatorOption,AccountNameOption, InputFileArgument, OutputFileArgument,summarizeOption
+            aggregationOption, outputEncodingOption, inputEncodingOption, inputSeperatorOption, outputSeperatorOption,AccountNameOption, InputFileArgument, OutputFileArgument,summarizeOption, excludeUnfinishedAggregation
         };
 
         #endregion
@@ -36,10 +38,16 @@ namespace mintosParser {
         }
 
         public static void Runner(InvocationContext context) {
+            //var task = LoansDownloader.DownloadLoansAsync("LVX00007GNO2").Result;
+            //Console.WriteLine(task);
+            //return;
             InputFile = new InputStatementFile(context.ParseResult.GetValueForArgument(InputFileArgument));
             OutputFile = new OutputStatementFile(context.ParseResult.GetValueForArgument(OutputFileArgument));
+
             Aggregator.Aggregation = context.ParseResult.GetValueForOption(aggregationOption);
+            Aggregator.removeUnfinishedAggregations = context.ParseResult.GetValueForOption(excludeUnfinishedAggregation);
             Transformer.CreateNotes = context.ParseResult.GetValueForOption(summarizeOption);
+
 
             Console.WriteLine("Inputfile: " + InputFile.Path.FullName);
             Console.WriteLine("Outputfile: " + OutputFile.Path.FullName);

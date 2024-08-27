@@ -5,7 +5,7 @@ namespace MintosParser.OutputStatementTypes {
         #region properties
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-        public List<IStatementType> aggregatedStatementTypes {get; set;}
+        public List<IStatementType> AggregatedStatementTypes {get; set;}
         public DateTime OutputDate {get; }
         // This is Decimal, because it can only be two diggests afterwards
         public decimal OutputValue { get; }

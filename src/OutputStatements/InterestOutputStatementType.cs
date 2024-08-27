@@ -7,7 +7,7 @@ namespace MintosParser.OutputStatementTypes {
             return "Zinsenzusammenfassung :" + Environment.NewLine +
             "Von: " + FromDate.ToString("dd.MM.yyyy") + " Bis: " + ToDate.ToString("dd.MM.yyyy") + 
             string.Join(Environment.NewLine, 
-                aggregatedStatementTypes.Select(x =>
+                AggregatedStatementTypes.Select(x =>
                     "[" + x.Date.ToString("HH:mm.ss dd.MM.yyyy") + "] " +
                     ((x.Value > 0) ? "Zinsen" : "Zinsbelastung") + " " +
                     x.Value.ToString() + " " + x.Currency +" " +
