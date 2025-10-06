@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Debug": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\..\\..\\SampleData\\account-statement.csv ..\\..\\..\\SampleData\\text-mintos.csv -ag daily -eua -n false"
+    }
+  }
+}

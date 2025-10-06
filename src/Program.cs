@@ -89,9 +89,11 @@ namespace mintosParser
                 }
                 return;
             }
-     
+#pragma warning disable CS8604 //  Errors checked above Possible null reference argument.
             InputFile = new InputStatementFile(result.GetValue(InputFileArgument));
+
             OutputFile = new OutputStatementFile(result.GetValue(OutputFileArgument));
+#pragma warning restore CS8604
 
             Aggregator.Aggregation = result.GetValue(aggregationOption);
             Aggregator.removeUnfinishedAggregations = result.GetValue(excludeUnfinishedAggregation);

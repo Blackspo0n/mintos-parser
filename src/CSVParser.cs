@@ -31,14 +31,17 @@ namespace MintosParser {
             };
             Reader.SetDelimiters(this.Delimiter);
 
-            string[] headers = Reader.ReadFields();
-
-            foreach(string header in headers) {
+            string[]? headers = Reader.ReadFields() ?? throw new InvalidOperationException("CSV file does not contain headers or is empty.");
+            foreach (string header in headers) {
                 FileTable.Columns.Add(header);
             }
 
             while (!Reader.EndOfData) {
-                FileTable.Rows.Add(Reader.ReadFields());
+                var fields = Reader.ReadFields();
+                if (fields != null)
+                {
+                    FileTable.Rows.Add(fields);
+                }
             }
 
         }

@@ -4,7 +4,6 @@ namespace MintosParser.StatementTypes {
 
     class StatementTypeFactory
     {
-        
         public static IStatementType? GetStatementType (string? PaymentType, DataRow row) {
             switch (PaymentType) {
                 default:
