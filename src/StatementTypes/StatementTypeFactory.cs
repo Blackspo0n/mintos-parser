@@ -12,6 +12,7 @@ namespace MintosParser.StatementTypes {
                     return null; 
                 case "Deposits":
                 case "Withdraw":
+                case "Withdrawal":
                     return new DepotType(row);
                 case "Bonus":
                 case "Welcome bonus":

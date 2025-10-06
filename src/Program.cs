@@ -1,31 +1,74 @@
 ﻿using MintosParser;
-using MintosParser.Loans;
 using System.CommandLine;
-using System.CommandLine.Invocation;
 using System.Text;
 
-
-namespace mintosParser {
+namespace mintosParser
+{
     class Program
     {
         #region static properties
-        public static OutputStatementFile? OutputFile { get; set;}
+        public static OutputStatementFile? OutputFile { get; set; }
         public static InputStatementFile? InputFile { get; set; }
         public static CSVParser? Parser { get; set; }
-        public static Option<string> outputEncodingOption = new(new string[]{"--output-encoding", "-oe"}, () => "utf-8", "Output encoding of the csv file");
-        public static Option<bool> summarizeOption = new(new string[]{"--notes", "-n"}, () => true, "Generate Notes with summarize every position in the given aggregation.");
-        public static Option<bool> excludeUnfinishedAggregation = new(new string[]{"--excludeNotFinishedAggregation", "-eua"}, () => false, "Exclude aggregations which has the end date higher than today.");
-        public static Option<Aggregator.AggregrationSpan> aggregationOption = new(
-            new string[] { "--aggregation", "-ag" }, () => Aggregator.AggregrationSpan.monthly, "Aggregate the statement. The statemets are normalized to the end of the aggregation date."
-        );
-        public static Option<string> inputEncodingOption = new(new string[]{"--input-encoding", "-ie"}, () => "utf-8", "Input encoding of the csv file");
-        //public static Option<string> inputLanguageOption = new Option<string>(new string[]{"--input-language", "-il"}, (value) => "en", true, "Langauge of the input csv file. Supported currently are: en");
-        public static Option<string> inputSeperatorOption = new(new string[]{"--input-seperator", "-is"}, () => ",", "CSV seperator of the input file");
-        public static Option<string> outputSeperatorOption = new(new string[]{"--output-seperator", "-os"}, () => ";", "CSV seperator of the output file");
-        //public static Option<string> DepotNameOption = new Option<string>(new string[]{"--depot-name","-d"}, (value) => "Mintos", true, "Depot name which will be used to reference the loans.");
-        public static Option<string> AccountNameOption = new(new string[]{"--account-name","-a"}, () => "Mintos", "Account name which is used for deposits and withdraws.");
-        public static Argument<FileInfo> InputFileArgument = new("input file", "Mintos csv input path");
-        public static Argument<FileInfo> OutputFileArgument = new("output file",() => new FileInfo(".\\pp-import.csv"), "Output Path for Portfolio Performance csv file");
+        public static Option<string> outputEncodingOption = new("--output-encoding")
+        {
+            DefaultValueFactory = _ => "utf-8",
+            Description = "Output encoding of the csv file",
+            Aliases = { "-oe" }
+        };
+
+        public static Option<bool> summarizeOption = new("--notes")
+        {
+            Aliases = { "-n" },
+            Description = "Generate Notes with summarize every position in the given aggregation.",
+            DefaultValueFactory = _ => false
+        };
+
+        public static Option<bool> excludeUnfinishedAggregation = new("--excludeNotFinishedAggregation") {
+            Aliases = { "-eua" },
+            Description = "Exclude aggregations which has the end date higher than today.",
+            DefaultValueFactory = _ => false
+        };
+
+        public static Option<Aggregator.AggregrationSpan> aggregationOption = new("--aggregation", "-ag") {
+            Description = "Aggregate the statement. The statemets are normalized to the end of the aggregation date.",
+            DefaultValueFactory = _ => Aggregator.AggregrationSpan.monthly
+        };
+
+        public static Option<string> inputEncodingOption = new("--input-encoding")
+        {
+            DefaultValueFactory = _ => "utf-8",
+            Description = "Input encoding of the csv file",
+            Aliases = { "-ie" }
+        };
+        
+        public static Option<string> inputSeperatorOption = new("--input-seperator") {
+            DefaultValueFactory = _ => ",",
+            Description = "CSV seperator of the input file",
+            Aliases = { "-is" }
+        };
+        
+        public static Option<string> outputSeperatorOption = new("--output-seperator") {
+            DefaultValueFactory = _ => ";",
+            Description = "CSV seperator of the output file",
+            Aliases = { "-os" }
+        };
+        
+        public static Option<string> AccountNameOption = new("--account-name") {
+            Description = "Account name which is used for deposits and withdraws.",
+            DefaultValueFactory = _ => "Mintos",
+            Aliases = { "-a" }
+        };
+
+        public static Argument<FileInfo> InputFileArgument = new("input file") {
+            Description = "Mintos csv input path"
+        };
+
+        public static Argument<FileInfo> OutputFileArgument = new("output file")
+        {
+            DefaultValueFactory = _ => new FileInfo(".\\pp-import.csv"),
+            Description = "Output Path for Portfolio Performance csv file"
+        };
         public static RootCommand rootCommand = new("mintos-parser transforms mintos csv statement files into csv files that can be easily imported by Portfolio Performance") {
             aggregationOption, outputEncodingOption, inputEncodingOption, inputSeperatorOption, outputSeperatorOption,AccountNameOption, InputFileArgument, OutputFileArgument,summarizeOption, excludeUnfinishedAggregation
         };
@@ -33,20 +76,26 @@ namespace mintosParser {
         #endregion
         static void Main(string[] args)
         {
-            rootCommand.SetHandler(Runner);
-            rootCommand.Invoke(args);
+            Runner(rootCommand.Parse(args));
         }
 
-        public static void Runner(InvocationContext context) {
-            //var task = LoansDownloader.DownloadLoansAsync("LVX00007GNO2").Result;
-            //Console.WriteLine(task);
-            //return;
-            InputFile = new InputStatementFile(context.ParseResult.GetValueForArgument(InputFileArgument));
-            OutputFile = new OutputStatementFile(context.ParseResult.GetValueForArgument(OutputFileArgument));
+        public static void Runner(ParseResult result)
+        {
+            if (result.Errors.Count > 0)
+            {
+                foreach (var error in result.Errors)
+                {
+                    Console.WriteLine(error.Message);
+                }
+                return;
+            }
+     
+            InputFile = new InputStatementFile(result.GetValue(InputFileArgument));
+            OutputFile = new OutputStatementFile(result.GetValue(OutputFileArgument));
 
-            Aggregator.Aggregation = context.ParseResult.GetValueForOption(aggregationOption);
-            Aggregator.removeUnfinishedAggregations = context.ParseResult.GetValueForOption(excludeUnfinishedAggregation);
-            Transformer.CreateNotes = context.ParseResult.GetValueForOption(summarizeOption);
+            Aggregator.Aggregation = result.GetValue(aggregationOption);
+            Aggregator.removeUnfinishedAggregations = result.GetValue(excludeUnfinishedAggregation);
+            Transformer.CreateNotes = result.GetValue(summarizeOption);
 
 
             Console.WriteLine("Inputfile: " + InputFile.Path.FullName);
@@ -54,12 +103,14 @@ namespace mintosParser {
             Console.WriteLine("Use aggregation " + Aggregator.Aggregation.ToString());
 
             Parser = new CSVParser(InputFile);
-            Parser.SetParsingOptions(context.ParseResult.GetValueForOption(inputSeperatorOption) ?? ",", Encoding.GetEncoding(context.ParseResult.GetValueForOption(inputEncodingOption)??"utf-8"));
-            
-            try {
+            Parser.SetParsingOptions(result.GetValue(inputSeperatorOption) ?? ",", Encoding.GetEncoding(result.GetValue(inputEncodingOption) ?? "utf-8"));
+
+            try
+            {
                 Parser.LoadCSV();
             }
-            catch (Exception err) {
+            catch (Exception err)
+            {
                 Console.WriteLine(err.Message, err);
                 return;
             }
@@ -67,13 +118,13 @@ namespace mintosParser {
             var list = Parser.parse();
             OutputFile.PrepareOutputFile();
 
-            Transformer.AccountName = context.ParseResult.GetValueForOption(AccountNameOption) ?? string.Empty;
+            Transformer.AccountName = result.GetValue(AccountNameOption) ?? string.Empty;
             //Transformer.DepotName = context.ParseResult.GetValueForOption(DepotNameOption) ?? String.Empty;
-        
+
             var aggregatedList = Aggregator.Aggregate(list);
             Transformer.Transform(aggregatedList, OutputFile);
-            
-            OutputFile.SetParsingOptions(context.ParseResult.GetValueForOption(outputSeperatorOption) ?? string.Empty, Encoding.GetEncoding(context.ParseResult.GetValueForOption(outputEncodingOption)??"utf-8"));
+
+            OutputFile.SetParsingOptions(result.GetValue(outputSeperatorOption) ?? string.Empty, Encoding.GetEncoding(result.GetValue(outputEncodingOption) ?? "utf-8"));
             OutputFile.DoExport();
         }
     }

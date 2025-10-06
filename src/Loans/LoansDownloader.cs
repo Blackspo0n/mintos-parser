@@ -1,6 +1,6 @@
 using System.Net;
 using System.Net.Mime;
-using Tabula;
+/*using Tabula;
 using Tabula.Detectors;
 using Tabula.Extractors;
 using UglyToad.PdfPig;
@@ -55,4 +55,4 @@ public class LoansDownloader {
         Console.WriteLine("Hallo");
         return "";
     }
-}
+}*/
